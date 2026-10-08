@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-
+import API_URL from "../api.js";
 function Tasks() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -37,14 +37,14 @@ function Tasks() {
   });
 
   async function loadSubjects() {
-    const response = await fetch("/api/subjects", {
+    const response = await fetch(`${API_URL}/api/subjects`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
     const result = await response.json();
 
     if (!response.ok) {
-      throw new Error(result.message || "Subjects load failed");
+      throw new Error(result.message || `Subjects load failed`);
     }
 
     setSubjects(result.subjects || []);
@@ -163,10 +163,10 @@ function Tasks() {
     const formData = new FormData();
     formData.append("file", selectedFile);
 
-    const response = await fetch("/api/files/upload", {
+    const response = await fetch(`${API_URL}/api/files/upload`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: "Bearer " + token,
       },
       body: formData,
     });
@@ -220,14 +220,14 @@ function Tasks() {
       }
 
       const url = editingId
-        ? `/api/tasks/${editingId}`
-        : "/api/tasks/create";
+        ? `${API_URL}/api/tasks/${editingId}`
+        : `${API_URL}/api/tasks/create`;
 
       const response = await fetch(url, {
         method: editingId ? "PUT" : "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: "Bearer " + token,
         },
         body: JSON.stringify({
           ...form,
@@ -258,10 +258,10 @@ function Tasks() {
     } catch (err) {
       if (uploadedMaterialId && !taskSaved) {
         try {
-          await fetch(`/api/files/${uploadedMaterialId}`, {
+          await fetch(`${API_URL}/api/files/${uploadedMaterialId}`, {
             method: "DELETE",
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: "Bearer " + token,
             },
           });
         } catch {
@@ -317,10 +317,10 @@ function Tasks() {
     setDeletingMaterialId(material._id);
 
     try {
-      const response = await fetch(`/api/files/${material._id}`, {
+      const response = await fetch(`${API_URL}/api/files/${material._id}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: "Bearer " + token,
         },
       });
 
@@ -353,10 +353,10 @@ function Tasks() {
     setDeletingTaskId(id);
 
     try {
-      const response = await fetch(`/api/tasks/${id}`, {
+      const response = await fetch(`${API_URL}/api/tasks/${id}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: "Bearer " + token,
         },
       });
 
@@ -957,3 +957,14 @@ function Tasks() {
 }
 
 export default Tasks;
+
+
+
+
+
+
+
+
+
+
+

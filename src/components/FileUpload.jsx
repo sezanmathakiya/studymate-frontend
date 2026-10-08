@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-
+import API_URL from "../api.js";
 function FileUpload() {
   const [file, setFile] = useState(null);
   const [files, setFiles] = useState([]);
@@ -16,16 +16,16 @@ function FileUpload() {
     setError("");
 
     try {
-      const response = await fetch("/api/files", {
+      const response = await fetch(`${API_URL}/api/files`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: "Bearer " + token,
         },
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Failed to fetch files");
+        throw new Error(data.message || `Failed to fetch files`);
       }
 
       setFiles(data.files || []);
@@ -56,10 +56,10 @@ function FileUpload() {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("/api/files/upload", {
+      const response = await fetch(`${API_URL}/api/files/upload`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: "Bearer " + token,
         },
         body: formData,
       });
@@ -207,3 +207,9 @@ function FileUpload() {
 }
 
 export default FileUpload;
+
+
+
+
+
+

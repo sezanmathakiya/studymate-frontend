@@ -1,6 +1,7 @@
-
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import API_URL from "../api.js";
+
 
 function Signup() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function Signup() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("/api/user/signup", {
+      const response = await fetch(`${API_URL}/api/user/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

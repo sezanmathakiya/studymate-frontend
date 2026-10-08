@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import API_URL from "../api.js";
 function Progress() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -29,9 +29,9 @@ function Progress() {
 
         const [overallRes, subjectsRes, activityRes] =
           await Promise.all([
-            fetch("/api/tasks/progress", { headers }),
-            fetch("/api/tasks/progress/subjects", { headers }),
-            fetch("/api/tasks/activity", { headers }),
+            fetch(`${API_URL}/api/tasks/progress`, { headers }),
+            fetch(`${API_URL}/api/tasks/progress/subjects`, { headers }),
+            fetch(`${API_URL}/api/tasks/activity`, { headers }),
           ]);
 
         const overallData = await overallRes.json();
@@ -39,7 +39,7 @@ function Progress() {
         const activityData = await activityRes.json();
 
         if (!overallRes.ok) {
-          throw new Error(overallData.message || "Progress load failed");
+          throw new Error(overallData.message || `Progress load failed`);
         }
 
         if (!subjectsRes.ok) {
@@ -233,3 +233,7 @@ function Progress() {
 }
 
 export default Progress;
+
+
+
+

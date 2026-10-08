@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import API_URL from "../api.js";
 function Dashboard() {
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function Dashboard() {
           return;
         }
 
-        const response = await fetch("/api/tasks/progress", {
+        const response = await fetch(`${API_URL}/api/tasks/progress`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -27,7 +27,7 @@ function Dashboard() {
         const result = await response.json();
 
         if (!response.ok) {
-          throw new Error(result.message || "Failed to load progress");
+          throw new Error(result.message || `Failed to load progress`);
         }
 
         setProgress(result);
@@ -134,3 +134,7 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+
+
+

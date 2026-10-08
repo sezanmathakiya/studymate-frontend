@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import API_URL from "../api.js";
 function Subjects() {
   const [subjects, setSubjects] = useState([]);
   const [name, setName] = useState("");
@@ -16,16 +16,16 @@ function Subjects() {
   useEffect(() => {
     async function fetchSubjects() {
       try {
-        const response = await fetch("/api/subjects", {
+        const response = await fetch(`${API_URL}/api/subjects`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: "Bearer " + token,
           },
         });
 
         const result = await response.json();
 
         if (!response.ok) {
-          throw new Error(result.message || "Failed to load subjects");
+          throw new Error(result.message || `Failed to load subjects`);
         }
 
         setSubjects(result.subjects || []);
@@ -49,11 +49,11 @@ function Subjects() {
     }
 
     try {
-      const response = await fetch("/api/subjects/create", {
+      const response = await fetch(`${API_URL}/api/subjects/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: "Bearer " + token,
         },
         body: JSON.stringify({ name: name.trim() }),
       });
@@ -86,11 +86,11 @@ function Subjects() {
     }
 
     try {
-      const response = await fetch(`/api/subjects/${id}`, {
+      const response = await fetch(`${API_URL}/api/subjects/${id}`,  {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: "Bearer " + token,
         },
         body: JSON.stringify({ name: editName.trim() }),
       });
@@ -126,10 +126,10 @@ function Subjects() {
     setError("");
 
     try {
-      const response = await fetch(`/api/subjects/${id}`, {
+      const response = await fetch(`${API_URL}/api/subjects/${id}`,  {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: "Bearer " + token,
         },
       });
 
@@ -271,3 +271,11 @@ function Subjects() {
 }
 
 export default Subjects;
+
+
+
+
+
+
+
+
