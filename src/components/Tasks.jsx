@@ -1,10 +1,11 @@
-
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import API_URL from "../api.js";
+
 function Tasks() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
   const subjectId = searchParams.get("subject");
   const token = localStorage.getItem("token");
 
@@ -38,13 +39,15 @@ function Tasks() {
 
   async function loadSubjects() {
     const response = await fetch(`${API_URL}/api/subjects`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     const result = await response.json();
 
     if (!response.ok) {
-      throw new Error(result.message || `Subjects load failed`);
+      throw new Error(result.message || "Subjects load failed");
     }
 
     setSubjects(result.subjects || []);
@@ -53,16 +56,26 @@ function Tasks() {
   async function loadTasks() {
     const params = new URLSearchParams();
 
-    if (subjectId) params.set("subject", subjectId);
-    if (filters.status) params.set("status", filters.status);
-    if (filters.priority) params.set("priority", filters.priority);
+    if (subjectId) {
+      params.set("subject", subjectId);
+    }
+
+    if (filters.status) {
+      params.set("status", filters.status);
+    }
+
+    if (filters.priority) {
+      params.set("priority", filters.priority);
+    }
 
     const query = params.toString();
 
     const response = await fetch(
-      `/api/tasks${query ? `?${query}` : ""}`,
+      `${API_URL}/api/tasks${query ? `?${query}` : ""}`,
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 
@@ -106,7 +119,10 @@ function Tasks() {
 
   function handleFileChange(e) {
     const file = e.target.files?.[0];
-    if (!file) return;
+
+    if (!file) {
+      return;
+    }
 
     const allowedTypes = [
       "application/pdf",
@@ -158,7 +174,9 @@ function Tasks() {
   }
 
   async function uploadMaterial() {
-    if (!selectedFile) return null;
+    if (!selectedFile) {
+      return null;
+    }
 
     const formData = new FormData();
     formData.append("file", selectedFile);
@@ -186,6 +204,7 @@ function Tasks() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     setError("");
     setSuccess("");
 
@@ -200,11 +219,13 @@ function Tasks() {
     }
 
     setSaving(true);
+
     let uploadedMaterialId = null;
     let taskSaved = false;
 
     try {
       uploadedMaterialId = await uploadMaterial();
+
       let materialId = uploadedMaterialId;
 
       if (!selectedFile && editingId) {
@@ -245,7 +266,9 @@ function Tasks() {
       }
 
       taskSaved = true;
+
       const wasEditing = Boolean(editingId);
+
       resetForm();
 
       await loadTasks();
@@ -295,7 +318,10 @@ function Tasks() {
     setError("");
     setSuccess("");
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }
 
   async function deleteMaterial(material) {
@@ -310,19 +336,24 @@ function Tasks() {
       }"?`
     );
 
-    if (!confirmed) return;
+    if (!confirmed) {
+      return;
+    }
 
     setError("");
     setSuccess("");
     setDeletingMaterialId(material._id);
 
     try {
-      const response = await fetch(`${API_URL}/api/files/${material._id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      const response = await fetch(
+        `${API_URL}/api/files/${material._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
 
       const result = await response.json().catch(() => ({}));
 
@@ -335,6 +366,7 @@ function Tasks() {
       }
 
       await loadTasks();
+
       setSuccess("Study material deleted successfully!");
     } catch (err) {
       setError(err.message || "Unable to delete material.");
@@ -371,6 +403,7 @@ function Tasks() {
       }
 
       await loadTasks();
+
       setSuccess("Task deleted successfully!");
     } catch (err) {
       setError(err.message || "Unable to delete task.");
@@ -395,9 +428,10 @@ function Tasks() {
   const isOfficeFile = (file) =>
     /\.(doc|docx|ppt|pptx)$/i.test(file?.originalName || "");
 
-  // PDF ને inline ખોલવા માટે Cloudinary delivery flag
   const getInlineUrl = (file) => {
-    if (!file?.url) return "";
+    if (!file?.url) {
+      return "";
+    }
 
     if (isPdf(file) && file.url.includes("/upload/")) {
       return file.url.replace("/upload/", "/upload/fl_inline/");
@@ -409,12 +443,14 @@ function Tasks() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-4 sm:p-8">
       <div className="mx-auto max-w-5xl space-y-6">
+
         {/* Header */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-3xl font-bold text-gray-800">
               My Tasks
             </h1>
+
             <p className="mt-1 text-gray-600">
               Organize your study tasks and materials.
             </p>
@@ -457,10 +493,12 @@ function Tasks() {
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-2xl">
               {editingId ? "✏️" : "📝"}
             </div>
+
             <div>
               <h2 className="text-xl font-bold text-gray-800">
                 {editingId ? "Edit Task" : "Add New Task"}
               </h2>
+
               <p className="text-sm text-gray-500">
                 Fill in the details of your study task.
               </p>
@@ -475,6 +513,7 @@ function Tasks() {
             >
               Task Title <span className="text-red-500">*</span>
             </label>
+
             <input
               id="title"
               name="title"
@@ -495,6 +534,7 @@ function Tasks() {
             >
               Description
             </label>
+
             <textarea
               id="description"
               name="description"
@@ -509,6 +549,7 @@ function Tasks() {
 
           {/* Subject, Status, Priority and Due Date */}
           <div className="grid gap-4 sm:grid-cols-2">
+
             <div>
               <label
                 htmlFor="subject"
@@ -516,6 +557,7 @@ function Tasks() {
               >
                 Subject <span className="text-red-500">*</span>
               </label>
+
               <select
                 id="subject"
                 name="subject"
@@ -525,6 +567,7 @@ function Tasks() {
                 className="w-full rounded-xl border border-gray-300 bg-white p-3 outline-none focus:border-blue-500"
               >
                 <option value="">Select Subject</option>
+
                 {subjects.map((subject) => (
                   <option key={subject._id} value={subject._id}>
                     {subject.name}
@@ -540,6 +583,7 @@ function Tasks() {
               >
                 Status
               </label>
+
               <select
                 id="status"
                 name="status"
@@ -560,6 +604,7 @@ function Tasks() {
               >
                 Priority
               </label>
+
               <select
                 id="priority"
                 name="priority"
@@ -580,6 +625,7 @@ function Tasks() {
               >
                 Due Date
               </label>
+
               <input
                 id="dueDate"
                 type="date"
@@ -599,6 +645,7 @@ function Tasks() {
             >
               Study Material (Optional)
             </label>
+
             <input
               key={fileInputKey}
               id="material"
@@ -608,7 +655,11 @@ function Tasks() {
               onChange={handleFileChange}
               className="w-full rounded-xl border border-gray-300 bg-white p-3 text-sm file:mr-4 file:rounded-lg file:border-0 file:bg-blue-100 file:px-4 file:py-2 file:font-semibold file:text-blue-700 hover:file:bg-blue-200"
             />
-            <p id="material-help" className="mt-1 text-xs text-gray-500">
+
+            <p
+              id="material-help"
+              className="mt-1 text-xs text-gray-500"
+            >
               PDF, DOC, DOCX, PPT and PPTX. Maximum size: 5 MB.
             </p>
 
@@ -624,9 +675,12 @@ function Tasks() {
                   <input
                     type="checkbox"
                     checked={removeMaterial}
-                    onChange={(e) => setRemoveMaterial(e.target.checked)}
+                    onChange={(e) =>
+                      setRemoveMaterial(e.target.checked)
+                    }
                     className="h-4 w-4 accent-red-600"
                   />
+
                   Remove existing material when updating
                 </label>
               )}
@@ -642,8 +696,8 @@ function Tasks() {
               {saving
                 ? "Saving..."
                 : editingId
-                  ? "Update Task"
-                  : "Create Task"}
+                ? "Update Task"
+                : "Create Task"}
             </button>
 
             {editingId && (
@@ -666,6 +720,7 @@ function Tasks() {
               <h2 className="text-2xl font-bold text-gray-800">
                 Your Tasks
               </h2>
+
               <p className="text-sm text-gray-500">
                 Manage and track your study activities.
               </p>
@@ -715,9 +770,11 @@ function Tasks() {
           ) : tasks.length === 0 ? (
             <div className="rounded-2xl border border-gray-100 bg-white p-10 text-center shadow">
               <div className="mb-3 text-5xl">📋</div>
+
               <h3 className="font-semibold text-gray-800">
                 No tasks found
               </h3>
+
               <p className="mt-1 text-sm text-gray-500">
                 Add a new task to get started.
               </p>
@@ -739,13 +796,15 @@ function Tasks() {
                         task.status === "completed"
                           ? "bg-green-100 text-green-700"
                           : task.status === "in-progress"
-                            ? "bg-amber-100 text-amber-700"
-                            : "bg-blue-100 text-blue-700"
+                          ? "bg-amber-100 text-amber-700"
+                          : "bg-blue-100 text-blue-700"
                       }`}
                     >
                       {task.status === "in-progress"
                         ? "In Progress"
-                        : (task.status || "pending").charAt(0).toUpperCase() +
+                        : (task.status || "pending")
+                            .charAt(0)
+                            .toUpperCase() +
                           (task.status || "pending").slice(1)}
                     </span>
                   </div>
@@ -773,11 +832,13 @@ function Tasks() {
                           task.priority === "high"
                             ? "font-semibold text-red-600"
                             : task.priority === "medium"
-                              ? "font-semibold text-amber-600"
-                              : "font-semibold text-green-600"
+                            ? "font-semibold text-amber-600"
+                            : "font-semibold text-green-600"
                         }
                       >
-                        {(task.priority || "medium").charAt(0).toUpperCase() +
+                        {(task.priority || "medium")
+                          .charAt(0)
+                          .toUpperCase() +
                           (task.priority || "medium").slice(1)}
                       </span>
                     </p>
@@ -816,12 +877,15 @@ function Tasks() {
                   {task.material?.url && (
                     <div className="flex flex-wrap items-center gap-3 rounded-xl border border-blue-100 bg-blue-50 p-3">
                       <span className="text-2xl">📄</span>
+
                       <div className="min-w-0 flex-1">
                         <p className="text-xs font-semibold text-gray-600">
                           Study Material
                         </p>
+
                         <p className="break-all text-sm font-medium text-gray-800">
-                          {task.material.originalName || "Attached material"}
+                          {task.material.originalName ||
+                            "Attached material"}
                         </p>
                       </div>
 
@@ -846,7 +910,9 @@ function Tasks() {
                       <button
                         type="button"
                         onClick={() => deleteMaterial(task.material)}
-                        disabled={deletingMaterialId === task.material._id}
+                        disabled={
+                          deletingMaterialId === task.material._id
+                        }
                         className="rounded-lg bg-red-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         {deletingMaterialId === task.material._id
@@ -938,6 +1004,7 @@ function Tasks() {
                   <p className="font-medium text-gray-700">
                     Preview is not available for this file.
                   </p>
+
                   <a
                     href={previewFile.url}
                     target="_blank"
@@ -957,14 +1024,4 @@ function Tasks() {
 }
 
 export default Tasks;
-
-
-
-
-
-
-
-
-
-
 
