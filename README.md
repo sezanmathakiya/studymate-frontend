@@ -1,16 +1,276 @@
-# React + Vite
+\# 📚 StudyMate – Student Study \& Task Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+StudyMate is a full-stack web application designed to help students organize their academic activities, manage study tasks, track progress, and manage study resources in one place.
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+\## 🌐 Live Demo
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+\*\*Live Website:\*\* https://studymate-frontend-rgh9.onrender.com/
+
+
+
+\## 📂 Repositories
+
+
+
+\- \*\*Frontend:\*\* https://github.com/sezanmathakiya/studymate-frontend
+
+\- \*\*Backend:\*\* https://github.com/sezanmathakiya/studymate-backend
+
+
+
+\## ✨ Features
+
+
+
+\- User signup and login
+
+\- Student dashboard
+
+\- Subject management
+
+\- Study task management
+
+\- Study progress tracking
+
+\- Study file uploads
+
+\- Email reminders
+
+
+
+\## 🛠️ Tech Stack
+
+
+
+\### Frontend
+
+\- React
+
+\- Vite
+
+\- Tailwind CSS
+
+\- React Router DOM
+
+\- React Hook Form
+
+
+
+\### Backend
+
+\- Node.js
+
+\- Express.js
+
+\- MongoDB Atlas
+
+\- Mongoose
+
+\- JWT authentication
+
+\- bcryptjs
+
+\- Multer
+
+\- Cloudinary
+
+
+
+\### Deployment and Tools
+
+\- Git and GitHub
+
+\- Render
+
+\- Google Search Console
+
+
+
+\## 🏗️ Application Architecture
+
+
+
+```text
+
+Student
+
+&#x20;  |
+
+&#x20;  v
+
+React + Vite Frontend
+
+&#x20;  |
+
+&#x20;  v
+
+Node.js + Express.js API
+
+&#x20;  |
+
+&#x20;  +------> MongoDB Atlas
+
+&#x20;  |
+
+&#x20;  +------> Cloudinary
+
+&#x20;  |
+
+&#x20;  +------> Email Reminder Service
+
+```
+
+
+
+\## 🚀 Run Locally
+
+
+
+\### Prerequisites
+
+\- Node.js
+
+\- npm
+
+\- Git
+
+
+
+\### 1. Clone the repository
+
+
+
+```bash
+
+git clone https://github.com/sezanmathakiya/studymate-frontend.git
+
+```
+
+
+
+\### 2. Open the project folder
+
+
+
+```bash
+
+cd studymate-frontend
+
+```
+
+
+
+\### 3. Install dependencies
+
+
+
+```bash
+
+npm install
+
+```
+
+
+
+\### 4. Start the development server
+
+
+
+```bash
+
+npm run dev
+
+```
+
+
+
+Open the local URL shown in the terminal.
+
+
+
+\### 5. Create a production build
+
+
+
+```bash
+
+npm run build
+
+```
+
+
+
+The production build is generated in the `dist` directory.
+
+
+
+\## ☁️ Deployment
+
+
+
+The frontend is deployed on Render as a Static Site.
+
+
+
+\- Build command: `npm run build`
+
+\- Publish directory: `dist`
+
+
+
+The backend is hosted separately and communicates with the frontend through API requests.
+
+
+
+\## 🔐 Security
+
+
+
+\- Do not commit `.env` files or private credentials.
+
+\- Store sensitive secrets on the backend.
+
+\- Validate incoming API requests.
+
+\- Protect private routes and user data.
+
+\- Configure CORS appropriately.
+
+
+
+\## 🎯 Project Objective
+
+
+
+StudyMate demonstrates practical full-stack development, including frontend design, backend API integration, database operations, authentication, file uploads, and cloud deployment.
+
+
+
+\## 👨‍💻 Developer
+
+
+
+\*\*Sezan Mathakiya\*\*
+
+
+
+MCA Student | Aspiring Backend Developer
+
+
+
+GitHub: https://github.com/sezanmathakiya
+
+
+
+\---
+
+
+
+\*StudyMate – Organize your studies. Manage your tasks. Track your progress.\*
+
