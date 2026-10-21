@@ -1,276 +1,144 @@
-\# 📚 StudyMate – Student Study \& Task Management System
-
-
-
-StudyMate is a full-stack web application designed to help students organize their academic activities, manage study tasks, track progress, and manage study resources in one place.
-
-
-
-\## 🌐 Live Demo
-
-
-
-\*\*Live Website:\*\* https://studymate-frontend-rgh9.onrender.com/
-
-
-
-\## 📂 Repositories
-
-
-
-\- \*\*Frontend:\*\* https://github.com/sezanmathakiya/studymate-frontend
-
-\- \*\*Backend:\*\* https://github.com/sezanmathakiya/studymate-backend
-
-
-
-\## ✨ Features
-
-
-
-\- User signup and login
-
-\- Student dashboard
-
-\- Subject management
-
-\- Study task management
-
-\- Study progress tracking
-
-\- Study file uploads
-
-\- Email reminders
-
-
-
-\## 🛠️ Tech Stack
-
-
-
-\### Frontend
-
-\- React
-
-\- Vite
-
-\- Tailwind CSS
-
-\- React Router DOM
-
-\- React Hook Form
-
-
-
-\### Backend
-
-\- Node.js
-
-\- Express.js
-
-\- MongoDB Atlas
-
-\- Mongoose
-
-\- JWT authentication
-
-\- bcryptjs
-
-\- Multer
-
-\- Cloudinary
-
-
-
-\### Deployment and Tools
-
-\- Git and GitHub
-
-\- Render
-
-\- Google Search Console
-
-
-
-\## 🏗️ Application Architecture
-
-
-
-```text
-
-Student
-
-&#x20;  |
-
-&#x20;  v
-
-React + Vite Frontend
-
-&#x20;  |
-
-&#x20;  v
-
-Node.js + Express.js API
-
-&#x20;  |
-
-&#x20;  +------> MongoDB Atlas
-
-&#x20;  |
-
-&#x20;  +------> Cloudinary
-
-&#x20;  |
-
-&#x20;  +------> Email Reminder Service
-
-```
-
-
-
-\## 🚀 Run Locally
-
-
-
-\### Prerequisites
-
-\- Node.js
-
-\- npm
-
-\- Git
-
-
-
-\### 1. Clone the repository
-
-
+# StudyMate — AI-Powered Student Study & Task Management System
+
+StudyMate is a full-stack web application designed to help students organize their subjects, manage study tasks, track academic progress, and get AI-powered learning assistance in one place.
+
+🌐 **Live Demo:** https://studymate-frontend-rgh9.onrender.com
+
+## ✨ Features
+
+- **User Authentication:** Secure signup and login using JWT authentication and bcrypt password hashing.
+- **Subject Management:** Create, view, update, and delete subjects.
+- **Task Management:** Organize tasks with priorities, due dates, and completion statuses.
+- **Progress Tracking:** Monitor task completion, subject-wise progress, and recent study activity.
+- **Study File Management:** Upload and manage study materials using Cloudinary.
+- **AI Study Assistant:** Ask questions and get AI-generated explanations using Google Gemini.
+- **Email Reminders:** Scheduled reminders to support study planning.
+- **User Data Isolation:** Authenticated users can access their own subjects, tasks, and files.
+
+## 🛠️ Tech Stack
+
+### Frontend
+- React
+- Vite
+- Tailwind CSS
+- React Router DOM
+- React Hook Form
+- JavaScript
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- bcryptjs
+- Google Gemini API
+- Multer
+- Cloudinary
+
+### Tools & Deployment
+- Visual Studio Code
+- Git and GitHub
+- Postman
+- MongoDB Atlas
+- Render
+
+## 🏗️ Architecture
+
+The frontend communicates with the Express.js REST API. The backend handles authentication, application logic, database operations, file management, and AI requests.
+
+- **Frontend repository:** https://github.com/sezanmathakiya/studymate-frontend
+- **Backend repository:** https://github.com/sezanmathakiya/studymate-backend
+- **Frontend deployment:** https://studymate-frontend-rgh9.onrender.com
+- **Backend deployment:** https://studymate-backend-1-izz3.onrender.com
+
+## ⚙️ Local Setup
+
+### Prerequisites
+- Node.js and npm
+- MongoDB database
+- Git
+
+### 1. Clone the repositories
+
+Frontend:
 
 ```bash
-
 git clone https://github.com/sezanmathakiya/studymate-frontend.git
-
-```
-
-
-
-\### 2. Open the project folder
-
-
-
-```bash
-
 cd studymate-frontend
-
-```
-
-
-
-\### 3. Install dependencies
-
-
-
-```bash
-
 npm install
-
 ```
 
-
-
-\### 4. Start the development server
-
-
+Backend — open a separate terminal:
 
 ```bash
+git clone https://github.com/sezanmathakiya/studymate-backend.git
+cd studymate-backend
+npm install
+```
 
+### 2. Configure environment variables
+
+Create a `.env` file in the backend directory and configure the variables required by the backend, such as:
+
+```env
+PORT=3000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+FRONTEND_URL=http://localhost:5173
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+Configure any additional Cloudinary and email-related variables required by your backend code.
+
+Never commit your `.env` file or expose API keys, database credentials, or JWT secrets publicly.
+
+### 3. Configure the frontend
+
+Create a `.env` file in the frontend directory:
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+### 4. Run the application
+
+Start the backend:
+
+```bash
+npm start
+```
+
+Start the frontend in its own terminal:
+
+```bash
 npm run dev
-
 ```
 
+Open the local URL displayed by Vite in your browser.
 
+## 🔐 Security
 
-Open the local URL shown in the terminal.
+- JWT-based authentication for protected APIs.
+- Password hashing using bcryptjs.
+- User-specific database queries for subjects, tasks, and files.
+- Request rate limiting and security headers.
+- Environment variables for sensitive configuration.
 
+Security testing performed so far includes unauthenticated API requests and checks that one account's subjects, tasks, and files are not displayed in another account. This is not a complete security audit.
 
+## 🎯 Project Goal
 
-\### 5. Create a production build
+The goal of StudyMate is to combine student productivity tools and AI-powered learning assistance in a single application, helping students organize their studies and manage their academic workload.
 
+## 👨‍💻 Author
 
+**Sezan Mathakiya**
 
-```bash
-
-npm run build
-
-```
-
-
-
-The production build is generated in the `dist` directory.
-
-
-
-\## ☁️ Deployment
-
-
-
-The frontend is deployed on Render as a Static Site.
-
-
-
-\- Build command: `npm run build`
-
-\- Publish directory: `dist`
-
-
-
-The backend is hosted separately and communicates with the frontend through API requests.
-
-
-
-\## 🔐 Security
-
-
-
-\- Do not commit `.env` files or private credentials.
-
-\- Store sensitive secrets on the backend.
-
-\- Validate incoming API requests.
-
-\- Protect private routes and user data.
-
-\- Configure CORS appropriately.
-
-
-
-\## 🎯 Project Objective
-
-
-
-StudyMate demonstrates practical full-stack development, including frontend design, backend API integration, database operations, authentication, file uploads, and cloud deployment.
-
-
-
-\## 👨‍💻 Developer
-
-
-
-\*\*Sezan Mathakiya\*\*
-
-
-
-MCA Student | Aspiring Backend Developer
-
-
+MCA Student | Node.js / Backend Developer
 
 GitHub: https://github.com/sezanmathakiya
 
+---
 
-
-\---
-
-
-
-\*StudyMate – Organize your studies. Manage your tasks. Track your progress.\*
-
+*Built to make studying more organized, productive, and accessible.*
