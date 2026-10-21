@@ -1,3 +1,4 @@
-const API_URL = "https://studymate-backend-4u7f.onrender.com";
+﻿const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 export default API_URL;
